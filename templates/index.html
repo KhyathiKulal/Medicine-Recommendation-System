@@ -1,90 +1,248 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-<!--  add a navbar -->
+    <title>PrescribeGinie</title>
+    <style>
+        .logo-round {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
 
-    <h1 class="text-center">Health Care Center</h1>
+        .navbar-custom {
+            background-color: #80ed99;
+        }
 
-<div class="container">
-  <form action="/predict" method="post">
-    <div class="form-group">
-      <label for="symptoms">Type Symptoms :</label>
-      <input type="text" class="form-control" name="symptoms" placeholder="symptoms like itching, vomiting etc">
-    </div>
-    <br>
-    <button class="btn btn-danger">Recommend</button>
-  </form>
-</div>
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #22577a;
+            font-weight: 900;
+        }
 
-<!--<p>{{predicted_disease}}</p>-->
+        .navbar-custom .nav-link:hover {
+            text-decoration: underline;
+            text-decoration-color: #22577a;
+        }
 
-{% if predicted_disease %}
-<h1 class="text-center">Our AI Result :</h1>
-<div class="container">
-  <div class="result-container>">
-    <button class="toggle-button"  data-bs-toggle="modal" data-bs-target="#diseaseModal">Disease</button>
-    <button class="toggle-button"  data-bs-toggle="modal" data-bs-target="#descriptionModal">Description</button>
-    <button class="toggle-button"  data-bs-toggle="modal" data-bs-target="#precausionModal">Precausion</button>
-    <button class="toggle-button"  data-bs-toggle="modal" data-bs-target="#medicationModal">Medication</button>
-    <button class="toggle-button"  data-bs-toggle="modal" data-bs-target="#dietsModal">Diets</button>
-    <button class="toggle-button"  data-bs-toggle="modal" data-bs-target="#workoutsModal">Workouts</button>
-  </div>
-</div>
-{% endif %}
+        .card-custom {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; /* Adjusted for responsiveness */
+            max-width: 700px; /* Limit maximum width */
+            margin-bottom: 100px; /* Added margin to create space for the footer */
+        }
 
-<div class="modal fade"  id="diseaseModal" aria-labelledby="diseaseModalLabel" aria-hidden="true" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="diseaseModalLabel">Predicted Disease</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        .card-header-custom {
+            background-color: #80ed99;
+            color: #22577a;
+            font-weight: 700;
+        }
+
+        .btn-custom-recommend {
+            background-color: #80ed99;
+            color: #22577a;
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn-custom-recommend:hover {
+            color: black;
+        }
+
+        .btn-custom-other {
+            background-color: #80ed99;
+            color: #22577a; /* Changed text color */
+            font-weight: bold;
+            border: none;
+            border-radius: 2px;
+            margin: 5px; /* Added margin for spacing */
+        }
+
+        .btn-custom-other:hover {
+            color: black;
+        }
+
+        .footer {
+            background-color: #80ed99;
+            color: #22577a;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .social-icons a {
+      margin: 0 10px;
+    }
+        .ziN{
+        z-index: 5
+        }
+
+        .ziC{
+        z-index: 2
+        }
+    </style>
+</head>
+
+<body>
+   <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom ziN">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="static/logo.jpg" alt="" width="60" height="40" class="logo-round d-inline-block align-text-center mx-4">
+        PrescribeGinie
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link mx-3 active" aria-current="page" href="/index">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/contact">Contact Us</a>
+          </li>
+        </ul>
       </div>
-      <div class="modal-body">
-        <p>{{predicted_disease}}</p>
-      </div>
     </div>
-  </div>
-</div>
+  </nav>
+  <!-- nav end -->
 
-<p>{{description}}</p>
-<ul>
-{% for i in precausion %}
-  <li>{{i}}</li>
-  {% endfor %}
-</ul>
+    <!-- body -->
+    <div class="card card-custom text-center shadow ziC">
+        <div class="card-header card-header-custom">
+            PrescribeGinie is Here!!
+        </div>
+        <div class="card-body">
+            <form action="/predict" method="post">
+                <div class="form-group">
+                    <label for="symptoms" class="form-label fw-bold">Type Your Symptoms Here:</label>
+                    <input type="text" class="form-control" name="symptoms"
+                        placeholder="Symptoms like itching, vomiting etc">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-custom-recommend">Recommend</button>
+            </form>
+            {% if predicted_disease %}
+                <h3 class="text-center mt-3 mb-3">RESULTS:</h3>
+                <div class="container">
+                  <div class="result-container>">
+                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#precausionModal">Precausion</button>
+                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#medicationModal">Medication</button>
+                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#dietsModal">Diets</button>
+                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#workoutsModal">Workouts</button>
+                  </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
 
-<ul>
-{% for i in workout %}
-  <li>{{i}}</li>
-  {% endfor %}
-</ul>
+<!--    modal       -->
 
-<ul>
-{% for i in diets %}
-  <li>{{i}}</li>
-  {% endfor %}
-</ul>
+<!--    preacuasion -->
+    <div class="modal fade" id="precausionModal" tabindex="-1" aria-labelledby="precausinModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="precausinModalLabel">Precausion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in precausion %}
+                            <li>{{i}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+             </div>
+        </div>
+    </div>
+<!--    end  -->
 
-<p>{{medication}}</p>
-<!--<p>{{diets}}</p>-->
+    <!--   medication -->
+    <div class="modal fade" id="medicationModal" tabindex="-1" aria-labelledby="medicationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="medicationModalLabel">Medication</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{medication}}</p>
+                </div>
+             </div>
+        </div>
+    </div>
+<!--    end  -->
 
+    <!--    diets -->
+    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dietsModalLabel">Diets</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{diets}}</p>
+                </div>
+             </div>
+        </div>
+    </div>
+<!--    end  -->
 
+    <!--    workout -->
+    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="workoutsModalLabel">Workout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for w in workout %}
+                            <li>{{w}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+             </div>
+        </div>
+    </div>
+<!--    end  -->
 
+<!--    modal end   -->
 
+    <!-- body end -->
 
-    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">© 2024 PrescribeGinie. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- footer end -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>

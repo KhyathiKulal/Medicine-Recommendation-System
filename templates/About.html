@@ -1,27 +1,161 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About US</title>
+  <style>
+    .logo-round {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    }
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+    .navbar-custom {
+      background-color: #80ed99;
+    }
 
-    <!-- Optional JavaScript; choose one of the two! -->
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+      color: #22577a;
+      font-weight: 900;
+    }
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    .navbar-custom .nav-link:hover {
+      text-decoration: underline;
+      text-decoration-color: #22577a;
+    }
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-  </body>
+    .btn-custom {
+      background-color: #80ed99;
+      color: #1a4660;
+      font-weight: 700;
+    }
+
+    .btn-custom:hover {
+      color: black;
+    }
+
+    .footer {
+      background-color: #80ed99;
+      color: #22577a;
+      font-weight: bold;
+      text-align: center;
+      padding: 20px 0;
+      width: 100%;
+    }
+
+    .custom-color {
+      color: #22577a;
+      cursor: pointer;
+    }
+
+    .underline {
+      text-decoration: none;
+    }
+
+    .underline:hover {
+      text-decoration: underline;
+    }
+
+    .rounded-circle {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .rounded-circle:hover {
+      transform: scale(1.1);
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="static/logo.jpg" alt="" width="60" height="40" class="logo-round d-inline-block align-text-center mx-4">
+        PrescribeGinie
+      </a>
+      <button class="navbar-toggler order-lg-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse order-lg-3" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link mx-3 active" aria-current="page" href="/index">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/contact">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- nav end -->
+  <section class="py-2 text-center container">
+    <div class="row py-lg-4">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-bolder mb-5 custom-color underline">About Us</h1>
+        <p class="lead text-body-secondary">Welcome to PrescribeGenie, your trusted companion in health and wellness.
+          At PrescribeGenie, we believe in the power of technology to enhance healthcare outcomes. Our mission is to
+          provide personalized recommendations for your health needs, ensuring you receive the right guidance at your
+          fingertips.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- developer -->
+  <h1 class="text-center custom-color mb-5 fw-bolder underline">Developers Section :</h1>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-6 col-md-6 mb-4">
+        <img src="static/khyathi.jpg" alt="Khyathi" class="bd-placeholder-img rounded-circle" width="160" height="160">
+        <h2 class="fw-normal custom-color">Khyathi</h2>
+        <p>As a current third-year student pursuing Computer Science and Engineering at SIT, I bring my passion for web
+          development and machine learning to PrescribeGenie.</p>
+      </div>
+      <div class="col-lg-6 col-md-6 mb-4">
+        <img src="static/athish.jpg" alt="Athish" class="bd-placeholder-img rounded-circle" width="160" height="160">
+        <h2 class="fw-normal custom-color">Athish</h2>
+        <p>As a third-year student in Computer Science and Engineering at SIT, I contribute to PrescribeGenie with a
+          blend of design skills and coding expertise.</p>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-lg-6 col-md-6 mb-4">
+        <img src="static/dheeraj.jpg" alt="Dheeraj" class="bd-placeholder-img rounded-circle" width="160" height="160">
+        <h2 class="fw-normal custom-color">Dheeraj</h2>
+        <p>I am a dedicated student pursuing Computer Science and Engineering at SIT (3rd year). Beyond my academic
+          pursuits, I thrive in the world of gaming and am passionate about crafting seamless experiences through
+          development.</p>
+      </div>
+      <div class="col-lg-6 col-md-6 mb-4">
+        <img src="static/gowthami.jpg" alt="Gowthami" class="bd-placeholder-img rounded-circle" width="160" height="160">
+        <h2 class="fw-normal custom-color">Gowthami</h2>
+        <p>I am an imaginative mind currently immersed in Computer Science and Engineering at SIT (3rd year). My
+          creative pursuits in designing and explorations in machine learning fuel my curiosity and drive for
+          innovation.</p>
+      </div>
+    </div>
+  </div>
+  <!-- developer end -->
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="mb-0">© 2024 PrescribeGinie. All rights reserved.</p>
+    </div>
+  </footer>
+  <!-- footer end -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
 </html>
