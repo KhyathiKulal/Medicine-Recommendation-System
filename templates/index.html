@@ -39,9 +39,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%; /* Adjusted for responsiveness */
-            max-width: 700px; /* Limit maximum width */
-            margin-bottom: 100px; /* Added margin to create space for the footer */
+            width: 90%;
+            max-width: 700px;
+            margin-bottom: 100px; /
         }
 
         .card-header-custom {
@@ -63,11 +63,11 @@
 
         .btn-custom-other {
             background-color: #80ed99;
-            color: #22577a; /* Changed text color */
+            color: #22577a;
             font-weight: bold;
             border: none;
             border-radius: 2px;
-            margin: 5px; /* Added margin for spacing */
+            margin: 5px;
         }
 
         .btn-custom-other:hover {
@@ -84,46 +84,51 @@
             bottom: 0;
             width: 100%;
         }
+
         .social-icons a {
-      margin: 0 10px;
-    }
-        .ziN{
-        z-index: 5
+            margin: 0 10px;
         }
 
-        .ziC{
-        z-index: 2
+        .ziN {
+            z-index: 5
+        }
+
+        .ziC {
+            z-index: 2
         }
     </style>
 </head>
 
 <body>
-   <!-- navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light navbar-custom ziN">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="static/logo.jpg" alt="" width="60" height="40" class="logo-round d-inline-block align-text-center mx-4">
-        PrescribeGinie
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link mx-3 active" aria-current="page" href="/index">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/about">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/contact">Contact Us</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- nav end -->
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom ziN">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="static/logo.jpg" alt="" width="60" height="40"
+                    class="logo-round d-inline-block align-text-center mx-4">
+                PrescribeGinie
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link mx-3 active" aria-current="page" href="/index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- nav end -->
 
     <!-- body -->
     <div class="card card-custom text-center shadow ziC">
@@ -131,6 +136,11 @@
             PrescribeGinie is Here!!
         </div>
         <div class="card-body">
+            {% if error_message %}
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+            {% endif %}
             <form action="/predict" method="post">
                 <div class="form-group">
                     <label for="symptoms" class="form-label fw-bold">Type Your Symptoms Here:</label>
@@ -141,94 +151,114 @@
                 <button type="submit" class="btn btn-custom-recommend">Recommend</button>
             </form>
             {% if predicted_disease %}
-                <h3 class="text-center mt-3 mb-3">RESULTS:</h3>
-                <div class="container">
-                  <div class="result-container>">
-                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#precausionModal">Precausion</button>
-                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#medicationModal">Medication</button>
-                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#dietsModal">Diets</button>
-                    <button class="toggle-button btn-custom-other"  data-bs-toggle="modal" data-bs-target="#workoutsModal">Workouts</button>
-                  </div>
+            <h3 class="text-center mt-3 mb-3">RESULTS:</h3>
+            <div class="container">
+                <div class="result-container>">
+                    <button class="toggle-button btn-custom-other" data-bs-toggle="modal"
+                        data-bs-target="#precausionModal">Precausion</button>
+                    <button class="toggle-button btn-custom-other" data-bs-toggle="modal"
+                        data-bs-target="#medicationModal">Medication</button>
+                    <button class="toggle-button btn-custom-other" data-bs-toggle="modal"
+                        data-bs-target="#dietsModal">Diets</button>
+                    <button class="toggle-button btn-custom-other" data-bs-toggle="modal"
+                        data-bs-target="#workoutsModal">Workouts</button>
                 </div>
-                {% endif %}
             </div>
+            {% endif %}
         </div>
+    </div>
 
-<!--    modal       -->
+    <!-- modal -->
 
-<!--    preacuasion -->
-    <div class="modal fade" id="precausionModal" tabindex="-1" aria-labelledby="precausinModalLabel" aria-hidden="true">
+    <!-- preacuasion -->
+    <div class="modal fade" id="precausionModal" tabindex="-1" aria-labelledby="precausinModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="precausinModalLabel">Precausion</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <ul>
                         {% for i in precausion %}
-                            <li>{{i}}</li>
+                        <li>{{i}}</li>
                         {% endfor %}
                     </ul>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
-<!--    end  -->
+    <!-- end -->
 
-    <!--   medication -->
-    <div class="modal fade" id="medicationModal" tabindex="-1" aria-labelledby="medicationModalLabel" aria-hidden="true">
+    <!-- medication -->
+    <div class="modal fade" id="medicationModal" tabindex="-1" aria-labelledby="medicationModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="medicationModalLabel">Medication</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{medication}}</p>
+                    <ul>
+                        {% for i in medication %}
+                        <li>{{i}}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
-<!--    end  -->
+    <!-- end -->
 
-    <!--    diets -->
-    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
+    <!-- diets -->
+    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="dietsModalLabel">Diets</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{diets}}</p>
+                    <ul>
+                        {% for i in diets %}
+                        <li>{{i}}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
-<!--    end  -->
+    <!-- end -->
 
-    <!--    workout -->
-    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
+    <!-- workout -->
+    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="workoutsModalLabel">Workout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <ul>
                         {% for w in workout %}
-                            <li>{{w}}</li>
+                        <li>{{w}}</li>
                         {% endfor %}
                     </ul>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
-<!--    end  -->
+    <!-- end -->
 
-<!--    modal end   -->
+    <!-- modal end -->
 
     <!-- body end -->
 
