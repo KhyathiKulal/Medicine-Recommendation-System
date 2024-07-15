@@ -144,11 +144,10 @@
             <form action="/predict" method="post">
                 <div class="form-group">
                     <label for="symptoms" class="form-label fw-bold">Type Your Symptoms Here:</label>
-                    <input type="text" class="form-control" name="symptoms"
-                        placeholder="Symptoms like itching, vomiting etc">
+                    <input type="text" class="form-control" name="symptoms" id="symptoms" placeholder="Symptoms like itching, vomiting etc">
                 </div>
                 <br>
-                <button type="submit" class="btn btn-custom-recommend">Recommend</button>
+                <button type="submit" class="btn btn-custom-recommend" id="recommendButton" disabled>Recommend</button>
             </form>
             {% if predicted_disease %}
             <h3 class="text-center mt-3 mb-3">RESULTS:</h3>
@@ -181,11 +180,11 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        {% for i in precausion %}
-                        <li>{{i}}</li>
-                        {% endfor %}
-                    </ul>
+                    <ul class="list-group list-group-flush">
+                    {% for i in precausion %}
+                    <li class="list-group-item border-0"><span class="fw-bold">✅</span> {{ i }}</li>
+                    {% endfor %}
+                </ul>
                 </div>
             </div>
         </div>
@@ -203,11 +202,11 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        {% for i in medication %}
-                        <li>{{i}}</li>
-                        {% endfor %}
-                    </ul>
+                    <ul class="list-group list-group-flush">
+                    {% for i in medication %}
+                    <li class="list-group-item border-0"><span class="fw-bold">✅</span> {{ i }}</li>
+                    {% endfor %}
+                </ul>
                 </div>
             </div>
         </div>
@@ -225,11 +224,11 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        {% for i in diets %}
-                        <li>{{i}}</li>
-                        {% endfor %}
-                    </ul>
+                    <ul class="list-group list-group-flush">
+                    {% for i in diets %}
+                    <li class="list-group-item border-0"><span class="fw-bold">✅</span> {{ i }}</li>
+                    {% endfor %}
+                </ul>
                 </div>
             </div>
         </div>
@@ -247,11 +246,11 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        {% for w in workout %}
-                        <li>{{w}}</li>
-                        {% endfor %}
-                    </ul>
+                    <ul class="list-group list-group-flush">
+                    {% for i in workout %}
+                    <li class="list-group-item border-0"><span class="fw-bold">✅</span> {{ i }}</li>
+                    {% endfor %}
+                </ul>
                 </div>
             </div>
         </div>
@@ -273,6 +272,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
+    <script>
+        document.getElementById('symptoms').addEventListener('input', function() {
+            const recommendButton = document.getElementById('recommendButton');
+            recommendButton.disabled = this.value.trim() === '';
+        });
+    </script>
 </body>
 
 </html>

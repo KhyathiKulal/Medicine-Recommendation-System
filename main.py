@@ -92,11 +92,17 @@ def get_closest_symptom(user_symptom):
 # Model prediction function
 def get_predicted_value(patient_symptoms):
     input_vector = np.zeros(len(symptoms_dict))
+    valid_symptoms = False
 
     for item in patient_symptoms:
         matched_symptom = get_closest_symptom(item)
         if matched_symptom:
             input_vector[symptoms_dict[matched_symptom]] = 1
+            valid_symptoms = True
+
+    if not valid_symptoms:
+        return None
+
     return disease_list[svc.predict([input_vector])[0]]
 
 # Creating routes
@@ -117,6 +123,9 @@ def predict():
         user_symp = [sym.strip("[]' ") for sym in user_symp]
         user_symp = [sym.lower().replace(' ', '_') for sym in user_symp]
         predicted_disease = get_predicted_value(user_symp)
+
+        if not predicted_disease:
+            return render_template('index.html', error_message="Please provide correct symptoms!")
 
         desc, prec, med, die, wrkout = helper(predicted_disease)
 
