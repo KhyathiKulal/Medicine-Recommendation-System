@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pickle
 from fuzzywuzzy import process
-
+import ast
 # Load datasets
 symptom = pd.read_csv('datasets/symtoms_df.csv')
 precaution = pd.read_csv('datasets/precautions_df.csv')
@@ -139,6 +139,13 @@ def predict():
             return render_template('index.html', error_message="Please provide correct symptoms!")
 
         desc, prec, med, die, wrkout = helper(predicted_disease)
+
+ 
+        if type(med) == list:
+            med = ast.literal_eval(med[0] ) 
+
+        if type(die) == list:
+            die = ast.literal_eval( die[0] )        
 
         if not prec:
             return render_template('index.html', error_message="No precautions found for the predicted disease.")
