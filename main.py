@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import numpy as np
 import pandas as pd
 import pickle
@@ -23,18 +23,19 @@ def helper(dis):
     desc = " ".join([w for w in desc])
 
     prec = precaution[precaution["Disease"] == dis][["Precaution_1", "Precaution_2", "Precaution_3", "Precaution_4"]]
-    prec = [col for col in prec.values]
+    prec = [col for col in prec.values] if not prec.empty else []
 
     med = medication[medication['Disease'] == dis]['Medication']
-    med = [med for med in med.values]
+    med = [med for med in med.values] if not med.empty else []
 
     die = diet[diet['Disease'] == dis]['Diet']
-    die = [die for die in die.values]
+    die = [die for die in die.values] if not die.empty else []
 
     wrkout = workout[workout['disease'] == dis]['workout']
-    wrkout = [wo for wo in wrkout.values]
+    wrkout = [wo for wo in wrkout.values] if not wrkout.empty else []
 
     return desc, prec, med, die, wrkout
+
 
 disease_list = {
     15: 'Fungal infection', 4: 'Allergy', 16: 'GERD', 9: 'Chronic cholestasis', 14: 'Drug Reaction',
@@ -84,6 +85,9 @@ symptoms_dict = {
     'inflammatory_nails': 128, 'blister': 129, 'red_sore_around_nose': 130, 'yellow_crust_ooze': 131
 }
 
+# List of invalid input words
+invalid_words = {'in', 'on', 'the', 'for', 'hi', 'hello','were','where','of','half'}
+
 # Function to find the closest matching symptom using fuzzy matching
 def get_closest_symptom(user_symptom):
     closest_match = process.extractOne(user_symptom, symptoms_dict.keys(), score_cutoff=70)
@@ -108,9 +112,9 @@ def get_predicted_value(patient_symptoms):
 # Creating routes
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", symptoms=list(symptoms_dict.keys()))
 
-@app.route('/predict', methods=['POST','GET'])
+@app.route('/predict', methods=['POST', 'GET'])
 def predict():
     if request.method == "POST":
         symptoms = request.form.get('symptoms')
@@ -122,12 +126,28 @@ def predict():
         user_symp = [s.strip() for s in symptoms.split(',')]
         user_symp = [sym.strip("[]' ") for sym in user_symp]
         user_symp = [sym.lower().replace(' ', '_') for sym in user_symp]
+
+        # Filter out invalid words
+        user_symp = [sym for sym in user_symp if sym not in invalid_words]
+
+        if not user_symp:
+            return render_template('index.html', error_message="Please provide valid symptoms!")
+
         predicted_disease = get_predicted_value(user_symp)
 
         if not predicted_disease:
             return render_template('index.html', error_message="Please provide correct symptoms!")
 
         desc, prec, med, die, wrkout = helper(predicted_disease)
+
+        if not prec:
+            return render_template('index.html', error_message="No precautions found for the predicted disease.")
+        if not med:
+            return render_template('index.html', error_message="No medications found for the predicted disease.")
+        if not die:
+            return render_template('index.html', error_message="No diets found for the predicted disease.")
+        if not wrkout:
+            return render_template('index.html', error_message="No workouts found for the predicted disease.")
 
         my_prec = []
         for i in prec[0]:
@@ -159,3 +179,4 @@ def About():
 # Python main
 if __name__ == "__main__":
     app.run(debug=True)
+
