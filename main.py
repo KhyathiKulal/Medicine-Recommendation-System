@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import pickle
 from fuzzywuzzy import process
-
+import ast
 # Load datasets
 symptom = pd.read_csv('datasets/symtoms_df.csv')
 precaution = pd.read_csv('datasets/precautions_df.csv')
@@ -228,6 +228,7 @@ def predict():
 
         desc, prec, med, die, wrkout = helper(predicted_disease)
 
+<<<<<<< HEAD
         # Handle empty lists and non-list content
         prec = prec if prec else ["No precautions available."]
         med = med if med else ["No medications available."]
@@ -241,6 +242,23 @@ def predict():
                 except (ValueError, SyntaxError):
                     return [item]
             return item
+=======
+ 
+        if type(med) == list:
+            med = ast.literal_eval(med[0] ) 
+
+        if type(die) == list:
+            die = ast.literal_eval( die[0] )        
+
+        if not prec:
+            return render_template('index.html', error_message="No precautions found for the predicted disease.")
+        if not med:
+            return render_template('index.html', error_message="No medications found for the predicted disease.")
+        if not die:
+            return render_template('index.html', error_message="No diets found for the predicted disease.")
+        if not wrkout:
+            return render_template('index.html', error_message="No workouts found for the predicted disease.")
+>>>>>>> 0304195eb6a3ca19a7fb81d2edff2baa8ae0a57a
 
         prec = [parse_list(p) for p in prec]
         med = [parse_list(m) for m in med]
