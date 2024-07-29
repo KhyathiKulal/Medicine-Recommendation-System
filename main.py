@@ -233,7 +233,6 @@ def predict():
         med = med if med else ["No medications available."]
         die = die if die else ["No diets available."]
         wrkout = wrkout if wrkout else ["No workouts available."]
-
         # Ensure valid list format for precautions, medications, diets, and workouts
         def parse_list(item):
             if isinstance(item, str):
